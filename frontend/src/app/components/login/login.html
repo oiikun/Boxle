@@ -1,0 +1,19 @@
+<div class="pagina-login">
+  <form class="cartao">
+    <div class="porta">
+      <span>Boxle</span>
+    </div>
+    <div class="campos">
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail</mat-label>
+        <input matInput type="email" [(ngModel)]="email" name="email" autocomplete="username" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" [(ngModel)]="senha" name="senha" autocomplete="current-password" />
+      </mat-form-field>
+      <p class="erro" *ngIf="erro != ''">{{ erro }}</p>
+      <button mat-flat-button type="submit" (click)="entrar()">Entrar</button>
+    </div>
+  </form>
+</div>

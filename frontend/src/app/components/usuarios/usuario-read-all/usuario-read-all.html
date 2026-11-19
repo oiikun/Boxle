@@ -1,0 +1,31 @@
+<div class="barra">
+  <div>
+    <h1 class="titulo">Usuários</h1>
+    <p class="subtitulo">Só o administrador cadastra quem acessa o sistema.</p>
+  </div>
+  <button mat-flat-button routerLink="/usuarios/novo">
+    <mat-icon>add</mat-icon> Novo usuário
+  </button>
+</div>
+
+<div class="lista">
+  <mat-card appearance="outlined" *ngFor="let item of list">
+    <mat-card-header>
+      <mat-card-title>{{ item.nome }}</mat-card-title>
+      <mat-card-subtitle>{{ item.email }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="documento">{{ item.cpf ? 'CPF ' + service.mascaraCpf(item.cpf) : 'CPF não informado' }}</p>
+      <span class="perfil" *ngIf="item.perfil == 'ADMIN'">Administrador</span>
+      <span class="perfil" *ngIf="item.perfil == 'ATENDENTE'">Atendente</span>
+    </mat-card-content>
+    <div class="acoes">
+      <button mat-mini-fab routerLink="/usuarios/{{ item.id }}" title="Editar">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab class="perigo" (click)="apagar(item)" title="Apagar">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>

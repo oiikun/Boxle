@@ -1,0 +1,88 @@
+<h1 class="titulo" *ngIf="!editando">Novo cliente</h1>
+<h1 class="titulo" *ngIf="editando">Alterar cliente</h1>
+<p class="subtitulo">Cadastro da empresa. CNPJ e IE são conferidos pelos dígitos verificadores.</p>
+
+<form class="formulario">
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>Razão social</mat-label>
+      <input matInput [(ngModel)]="cliente.nome" name="nome" />
+    </mat-form-field>
+  </div>
+
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>CNPJ</mat-label>
+      <input matInput [(ngModel)]="cliente.cnpj" name="cnpj" (keyup)="formatar()" (blur)="formatar()" placeholder="00.000.000/0000-00" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Inscrição estadual (ou ISENTO)</mat-label>
+      <input matInput [(ngModel)]="cliente.ie" name="ie" (keyup)="formatar()" (blur)="formatar()" placeholder="000.000.000.000" />
+    </mat-form-field>
+  </div>
+
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>CEP</mat-label>
+      <input matInput [(ngModel)]="cliente.cep" name="cep" (keyup)="conferirCep()" (blur)="conferirCep()" placeholder="00000-000" />
+      <mat-hint *ngIf="buscandoCep">Consultando os Correios...</mat-hint>
+      <mat-hint *ngIf="!buscandoCep && cepOk()">CEP conferido nos Correios</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Número</mat-label>
+      <input matInput [(ngModel)]="cliente.numero" name="numero" placeholder="Ex. 1000" />
+    </mat-form-field>
+  </div>
+
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>Rua</mat-label>
+      <input matInput [(ngModel)]="cliente.logradouro" name="logradouro" />
+    </mat-form-field>
+  </div>
+
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>Bairro</mat-label>
+      <input matInput [(ngModel)]="cliente.bairro" name="bairro" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Cidade</mat-label>
+      <input matInput [(ngModel)]="cliente.cidade" name="cidade" readonly />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="uf">
+      <mat-label>UF</mat-label>
+      <input matInput [(ngModel)]="cliente.uf" name="uf" readonly />
+    </mat-form-field>
+  </div>
+
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>Nome do contato na empresa</mat-label>
+      <input matInput [(ngModel)]="cliente.responsavel" name="responsavel" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Dia do pagamento</mat-label>
+      <mat-select [(ngModel)]="cliente.diaVencimento" name="diaVencimento">
+        <mat-option *ngFor="let dia of dias" [value]="dia">Todo dia {{ dia }}</mat-option>
+      </mat-select>
+      <mat-hint>Vale para todos os contratos desta empresa</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>Telefone</mat-label>
+      <input matInput [(ngModel)]="cliente.telefone" name="telefone" (keyup)="formatar()" (blur)="formatar()" placeholder="(11) 90000-0000" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>E-mail</mat-label>
+      <input matInput type="email" [(ngModel)]="cliente.email" name="email" placeholder="nome@empresa.com" />
+    </mat-form-field>
+  </div>
+
+  <div class="botoes">
+    <button mat-button type="button" (click)="cancelar()">Cancelar</button>
+    <button mat-flat-button type="submit" (click)="gravar()">Gravar</button>
+  </div>
+</form>

@@ -1,0 +1,14 @@
+# Bibliotecas baixadas e arquivos gerados (são recriados no build)
+frontend/node_modules/
+frontend/.angular/
+frontend/dist/
+backend/target/
+
+# Configurações de editor
+.idea/
+.vscode/
+*.iml
+
+# Sistema
+.DS_Store
+Thumbs.db

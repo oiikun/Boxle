@@ -1,0 +1,172 @@
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$orange-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+:root {
+  --aco: #2f3b42;
+  --faixa: #f2b705;
+  --concreto: #eeece7;
+  --livre: #2e7d4f;
+  --ocupado: #5f6f78;
+  --saindo: #b26a00;
+  --perigo: #b3261e;
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--concreto);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+  height: 100%;
+}
+
+h1.titulo {
+  font-family: 'Saira Stencil One', sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  color: var(--aco);
+  margin: 0 0 4px;
+}
+
+.subtitulo {
+  color: #5c6a70;
+  margin: 0 0 20px;
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.status {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.status.LIVRE {
+  background-color: var(--livre);
+}
+
+.status.OCUPADO {
+  background-color: var(--ocupado);
+}
+
+.status.ATIVO {
+  background-color: var(--livre);
+}
+
+.status.ENCERRADO,
+.status.ATRASO {
+  background-color: var(--perigo);
+}
+
+.lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.lista mat-card {
+  width: 362px;
+  background-color: #fff;
+  border-left: 5px solid var(--aco);
+  border-radius: 4px;
+}
+
+.acoes {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 0 12px 12px;
+}
+
+.formulario {
+  background-color: #fff;
+  padding: 24px 28px 12px;
+  border-top: 5px solid var(--faixa);
+  max-width: 760px;
+}
+
+.formulario .linha {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.formulario .linha mat-form-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.formulario .linha mat-form-field.uf {
+  flex: 0 0 90px;
+  min-width: 90px;
+}
+
+.botoes {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 8px 0 16px;
+}
+
+.botoes .espaco {
+  flex: 1;
+}
+
+.botoes .perigo {
+  --mat-button-filled-container-color: var(--perigo);
+  --mat-button-filled-label-text-color: #fff;
+}
+
+.vazio {
+  color: #5c6a70;
+  padding: 16px 0;
+}
+
+.documento {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
+  white-space: pre;
+}
+
+.perfil {
+  color: #5c6a70;
+}
+
+.endereco {
+  white-space: pre-line;
+}
+
+.alugados {
+  font-weight: 500;
+  color: var(--aco);
+}
+
+.acoes .perigo {
+  background-color: var(--perigo);
+  color: #fff;
+}

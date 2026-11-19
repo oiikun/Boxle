@@ -1,0 +1,38 @@
+.pagina-login {
+  display: flex;
+  justify-content: center;
+  padding-top: 48px;
+}
+
+.cartao {
+  width: 380px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.porta {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(to bottom, #6d7c84 0 9px, #56656d 9px 11px);
+  border-bottom: 6px solid var(--faixa);
+}
+
+.porta span {
+  font-family: 'Saira Stencil One', sans-serif;
+  font-size: 44px;
+  color: var(--faixa);
+  letter-spacing: 2px;
+}
+
+.campos {
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+}
+
+.erro {
+  color: var(--perigo);
+  margin: 0 0 12px;
+}

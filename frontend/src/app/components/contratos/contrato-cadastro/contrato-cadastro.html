@@ -1,0 +1,91 @@
+<h1 class="titulo" *ngIf="!editando">Novo contrato</h1>
+<h1 class="titulo" *ngIf="editando">Contrato do box {{ contrato.box.codigo }}</h1>
+<p class="subtitulo" *ngIf="!editando">Só aparecem os boxes livres. A 1ª parcela é paga na assinatura.</p>
+<p class="subtitulo" *ngIf="editando">
+  {{ contrato.cliente.nome }}
+  <span class="status {{ contrato.status }}">{{ contrato.status == 'ATIVO' ? 'Ativo' : 'Encerrado' }}</span>
+  <span class="status ATRASO" *ngIf="contrato.parcelasEmAtraso">Em atraso</span>
+</p>
+
+<form class="formulario">
+  <div class="linha" *ngIf="!editando">
+    <mat-form-field appearance="outline">
+      <mat-label>Box</mat-label>
+      <mat-select [(ngModel)]="boxId" name="box" (selectionChange)="escolherBox()">
+        <mat-option *ngFor="let box of boxesLivres" [value]="box.id">
+          {{ box.codigo }}, {{ boxService.tamanhoParaTexto(box.tamanho) }} m², {{ boxService.formatarValor(box.precoMensal) }}
+        </mat-option>
+      </mat-select>
+      <mat-hint *ngIf="boxesLivres.length == 0">Nenhum box livre no momento</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Cliente</mat-label>
+      <mat-select [(ngModel)]="clienteId" name="cliente" (selectionChange)="escolherCliente()">
+        <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nome }}</mat-option>
+      </mat-select>
+      <mat-hint *ngIf="clienteId && contrato.cliente.diaVencimento">
+        Paga todo dia {{ contrato.cliente.diaVencimento }} (do cadastro do cliente)
+      </mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>Início do aluguel</mat-label>
+      <input matInput [matDatepicker]="inicio" [(ngModel)]="dataInicio" name="dataInicio" [disabled]="editando"
+             [min]="hoje" [max]="inicioMaximo" />
+      <mat-hint *ngIf="!editando">De hoje até {{ service.inicioMaximoDias }} dias para frente</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="inicio" *ngIf="!editando"></mat-datepicker-toggle>
+      <mat-datepicker #inicio></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Valor por mês (R$)</mat-label>
+      <input matInput [(ngModel)]="valor" name="valor" (keyup)="formatar()" (blur)="formatar()" placeholder="0,00"
+             [disabled]="encerrado || !usuarioService.isAdmin()" />
+      <mat-hint *ngIf="!encerrado && !usuarioService.isAdmin()">Preço do box. Só o administrador dá desconto</mat-hint>
+      <mat-hint *ngIf="!encerrado && usuarioService.isAdmin() && contrato.box.tamanho">
+        Mínimo: {{ boxService.formatarValor(boxService.precoMinimo(contrato.box.tamanho)) }}
+      </mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div class="pagamentos" *ngIf="editando">
+    <h2>Pagamentos</h2>
+    <p *ngIf="contrato.status == 'ATIVO'">
+      Paga todo dia <strong>{{ contrato.diaVencimento }}</strong> (do cadastro do cliente).
+      Parcelas pagas: <strong>{{ contrato.parcelasPagas }}</strong>.
+      Próximo vencimento: <strong>{{ service.dataParaTexto(contrato.proximoVencimento) }}</strong>.
+    </p>
+    <p class="atraso" *ngIf="contrato.parcelasEmAtraso">
+      {{ contrato.parcelasEmAtraso }} parcela(s) vencida(s) sem pagamento:
+      <strong>{{ boxService.formatarValor(contrato.valorEmAtraso) }}</strong>.
+      O contrato só pode ser encerrado depois de pagar.
+    </p>
+    <p *ngIf="contrato.status == 'ATIVO' && !contrato.parcelasEmAtraso">
+      Em dia. Se encerrar agora, antes do vencimento de {{ service.dataParaTexto(contrato.proximoVencimento) }},
+      a próxima parcela não é cobrada.
+    </p>
+    <p *ngIf="encerrado">
+      Encerrado em <strong>{{ service.dataParaTexto(contrato.dataEncerramento) }}</strong>
+      com {{ contrato.parcelasPagas }} parcela(s) paga(s).
+    </p>
+    <p class="saida" *ngIf="encerrado && contrato.desocupando">
+      A empresa tem até <strong>{{ service.dataParaTexto(contrato.prazoDesocupacao) }}</strong> para retirar as coisas.
+      Depois disso o box fica livre sozinho.
+    </p>
+  </div>
+
+  <div class="botoes">
+    <ng-container *ngIf="editando && !encerrado">
+      <button mat-flat-button type="button" class="perigo" (click)="encerrar()">Encerrar contrato</button>
+      <button mat-stroked-button type="button" (click)="registrarPagamento()">Registrar pagamento</button>
+    </ng-container>
+    <button mat-stroked-button type="button" *ngIf="encerrado && contrato.desocupando" (click)="liberarAgora()">
+      Já desocupou, liberar box
+    </button>
+    <span class="espaco"></span>
+    <button mat-button type="button" (click)="cancelar()">{{ encerrado ? 'Voltar' : 'Cancelar' }}</button>
+    <button mat-flat-button type="submit" (click)="gravar()"
+            *ngIf="!encerrado && (!editando || usuarioService.isAdmin())">Gravar</button>
+  </div>
+</form>

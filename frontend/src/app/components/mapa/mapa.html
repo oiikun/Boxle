@@ -1,0 +1,29 @@
+<h1 class="titulo">Mapa do galpão</h1>
+<p class="subtitulo">Clique num box livre para alugar, ou num ocupado para ver o contrato.</p>
+
+<div class="placar">
+  <div class="placa LIVRE"><strong>{{ livres }}</strong><span>Livres</span></div>
+  <div class="placa OCUPADO"><strong>{{ ocupados }}</strong><span>Ocupados</span></div>
+</div>
+
+<div class="galpao">
+  <div class="corredor" *ngFor="let corredor of corredores">
+    <div class="letra">
+      {{ corredor.letra }}
+      <span class="area" [class.cheio]="corredor.areaUsada >= boxService.areaMaximaCorredor"
+            title="Área usada no corredor">
+        {{ boxService.tamanhoParaTexto(corredor.areaUsada) || '0' }}/{{ boxService.areaMaximaCorredor }} m²
+      </span>
+    </div>
+    <div class="boxes">
+      <button type="button" *ngFor="let box of corredor.boxes" class="porta {{ box.status }}"
+              [class.atraso]="emAtraso(box)" [class.saindo]="!!saindo(box)"
+              style="width: {{ largura(box) }}px" (click)="abrir(box)" [title]="dica(box)">
+        <span class="codigo">{{ box.codigo }}</span>
+        <span class="tamanho">{{ boxService.tamanhoParaTexto(box.tamanho) }} m²</span>
+        <span class="quem">{{ rotulo(box) }}</span>
+      </button>
+      <p class="vazio" *ngIf="corredor.boxes.length == 0">Nenhum box neste corredor.</p>
+    </div>
+  </div>
+</div>

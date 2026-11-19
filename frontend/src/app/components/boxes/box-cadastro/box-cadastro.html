@@ -1,0 +1,40 @@
+<h1 class="titulo" *ngIf="!editando">Novo box</h1>
+<h1 class="titulo" *ngIf="editando">Alterar box {{ box.codigo }}</h1>
+<p class="subtitulo" *ngIf="!alugado">O box fica ocupado sozinho quando recebe um contrato.</p>
+<p class="subtitulo" *ngIf="alugado">
+  Este box está alugado: o código e o tamanho ficam travados. O preço novo vale para os próximos contratos.
+</p>
+
+<form class="formulario">
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>Corredor</mat-label>
+      <mat-select [(ngModel)]="corredor" name="corredor" [disabled]="alugado">
+        <mat-option *ngFor="let letra of service.corredores" [value]="letra">{{ letra }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Número (1 a 10)</mat-label>
+      <input matInput [(ngModel)]="numero" name="numero" (keyup)="formatar()" (blur)="formatar()" placeholder="Ex. 6"
+             [disabled]="alugado" />
+      <mat-hint *ngIf="numero != ''">O código fica {{ corredor }}{{ numero }}</mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="linha">
+    <mat-form-field appearance="outline">
+      <mat-label>Tamanho em m² (1 a 50)</mat-label>
+      <input matInput [(ngModel)]="tamanho" name="tamanho" (keyup)="formatar()" (blur)="formatar()" placeholder="Ex. 2,5"
+             [disabled]="alugado" />
+      <mat-hint>Livre no corredor {{ corredor }}: {{ areaLivre() }} de {{ service.areaMaximaCorredor }} m²</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Preço por mês (R$)</mat-label>
+      <input matInput [(ngModel)]="preco" name="preco" (keyup)="formatar()" (blur)="formatar()" placeholder="0,00" />
+      <mat-hint>{{ textoPrecoMinimo() }}</mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="botoes">
+    <button mat-button type="button" (click)="cancelar()">Cancelar</button>
+    <button mat-flat-button type="submit" (click)="gravar()">Gravar</button>
+  </div>
+</form>

@@ -1,0 +1,131 @@
+.placar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.placa {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #fff;
+  border-left: 6px solid;
+}
+
+.placa strong {
+  font-family: 'Saira Stencil One', sans-serif;
+  font-weight: 400;
+  font-size: 26px;
+}
+
+.placa span {
+  color: #5c6a70;
+}
+
+.placa.LIVRE { border-color: var(--livre); }
+.placa.OCUPADO { border-color: var(--ocupado); }
+.porta.saindo {
+  background: repeating-linear-gradient(to bottom, #b26a00 0 9px, #925700 9px 11px);
+}
+
+.porta.atraso {
+  box-shadow: inset 0 -6px 0 var(--perigo);
+}
+
+.galpao {
+  background-color: #dcd9d2;
+  padding: 18px;
+  border: 2px dashed #a9a59c;
+}
+
+.corredor {
+  display: flex;
+  align-items: stretch;
+  gap: 14px;
+  min-height: 118px;
+}
+
+.corredor + .corredor {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 3px solid var(--faixa);
+}
+
+.letra {
+  width: 64px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Saira Stencil One', sans-serif;
+  font-size: 28px;
+  color: var(--aco);
+}
+
+.boxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.porta {
+  height: 118px;
+  border: none;
+  border-radius: 2px;
+  border-top: 8px solid #3a464c;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+
+.porta:hover {
+  outline: 3px solid var(--faixa);
+}
+
+.porta.LIVRE {
+  background: repeating-linear-gradient(to bottom, #2e7d4f 0 9px, #25643f 9px 11px);
+}
+
+.porta.OCUPADO {
+  background: repeating-linear-gradient(to bottom, #5f6f78 0 9px, #4c5960 9px 11px);
+}
+
+.codigo {
+  font-family: 'Saira Stencil One', sans-serif;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.tamanho {
+  font-size: 13px;
+}
+
+.quem {
+  font-size: 13px;
+  font-weight: 500;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.area {
+  margin-top: 4px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 11px;
+  color: #5c6a70;
+  white-space: nowrap;
+}
+
+.area.cheio {
+  color: #b3261e;
+  font-weight: 600;
+}

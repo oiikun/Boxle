@@ -1,0 +1,40 @@
+.header {
+  background-color: var(--aco);
+  color: #fff;
+  gap: 8px;
+  border-bottom: 4px solid var(--faixa);
+}
+
+.marca {
+  font-family: 'Saira Stencil One', sans-serif;
+  font-size: 30px;
+  color: var(--faixa);
+  text-decoration: none;
+  margin-right: 24px;
+  letter-spacing: 1px;
+}
+
+.menu a {
+  color: #dfe5e8;
+}
+
+.espaco {
+  flex: 1;
+}
+
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 15px;
+  color: #dfe5e8;
+}
+
+.header button {
+  color: #fff;
+}
+
+.usuario .perfil {
+  opacity: 0.7;
+  font-size: 12px;
+}

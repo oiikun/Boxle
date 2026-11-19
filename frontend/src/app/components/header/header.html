@@ -1,0 +1,18 @@
+<mat-toolbar class="header">
+  <a class="marca" routerLink="/">Boxle</a>
+  <nav class="menu" *ngIf="usuarioService.usuarioLogado">
+    <a mat-button routerLink="/">Mapa</a>
+    <a mat-button routerLink="/boxes">Boxes</a>
+    <a mat-button routerLink="/clientes">Clientes</a>
+  </nav>
+  <span class="espaco"></span>
+  <div class="usuario" *ngIf="usuarioService.usuarioLogado">
+    <span>{{ usuarioService.usuarioLogado.nome }} <small class="perfil">({{ usuarioService.nomePerfil(usuarioService.usuarioLogado.perfil) }})</small></span>
+    <button mat-icon-button routerLink="/usuarios" *ngIf="usuarioService.isAdmin()" title="Usuários">
+      <mat-icon>manage_accounts</mat-icon>
+    </button>
+    <button mat-icon-button (click)="sair()" title="Sair">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

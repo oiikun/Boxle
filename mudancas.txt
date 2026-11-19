@@ -1,0 +1,9 @@
+BOXLE - O QUE MUDOU
+
+- Galpao: cada corredor tem no maximo 150 m², e o box custa no minimo R$ 50 por m².
+- Box alugado nao muda de codigo nem de tamanho.
+- Cliente: sem CPF e RG (so CNPJ e IE) e com dia do pagamento (1 a 28).
+- Contrato: data de inicio, vencimento mensal, registro de pagamento e controle de atraso.
+- Encerramento: so sem parcela vencida, e a empresa tem 7 dias para desocupar o box.
+- Usuario: CPF obrigatorio. O atendente cuida do balcao, e o admin cuida de boxes, descontos, exclusoes e usuarios.
+- Validacoes (CPF, CNPJ, IE, CEP, e-mail, telefone) ficam todas no Documentos.java.

@@ -1,0 +1,33 @@
+<div class="barra">
+  <div>
+    <h1 class="titulo">Clientes</h1>
+    <p class="subtitulo">{{ resumo() }}</p>
+  </div>
+  <button mat-flat-button routerLink="/clientes/novo">
+    <mat-icon>add</mat-icon> Novo cliente
+  </button>
+</div>
+
+<div class="lista">
+  <mat-card appearance="outlined" *ngFor="let item of list">
+    <mat-card-header>
+      <mat-card-title>{{ item.nome }}</mat-card-title>
+      <mat-card-subtitle>Contato: {{ item.responsavel }} · paga todo dia {{ item.diaVencimento }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="alugados">{{ boxesDoCliente(item) }}</p>
+      <p class="documento">{{ documento(item) }}</p>
+      <p class="endereco">{{ endereco(item) }}</p>
+      <p>{{ item.telefone }}<br />{{ item.email }}</p>
+    </mat-card-content>
+    <div class="acoes">
+      <button mat-mini-fab routerLink="/clientes/{{ item.id }}" title="Editar">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab class="perigo" (click)="apagar(item)" title="Apagar" *ngIf="usuarioService.isAdmin()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+  <p class="vazio" *ngIf="list.length == 0">Nenhum cliente cadastrado.</p>
+</div>

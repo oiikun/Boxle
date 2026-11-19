@@ -1,0 +1,5 @@
+<app-header></app-header>
+<main class="conteudo">
+  <app-login *ngIf="!usuarioService.usuarioLogado"></app-login>
+  <router-outlet *ngIf="usuarioService.usuarioLogado"></router-outlet>
+</main>

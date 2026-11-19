@@ -1,0 +1,31 @@
+<div class="barra">
+  <div>
+    <h1 class="titulo">Boxes</h1>
+    <p class="subtitulo" *ngIf="list.length != 1">{{ list.length }} boxes no galpão</p>
+    <p class="subtitulo" *ngIf="list.length == 1">1 box no galpão</p>
+  </div>
+  <button mat-flat-button routerLink="/boxes/novo" *ngIf="usuarioService.isAdmin()">
+    <mat-icon>add</mat-icon> Novo box
+  </button>
+</div>
+
+<div class="lista">
+  <mat-card appearance="outlined" *ngFor="let item of list">
+    <mat-card-header>
+      <mat-card-title>Box {{ item.codigo }}</mat-card-title>
+      <mat-card-subtitle>{{ service.tamanhoParaTexto(item.tamanho) }} m² por {{ service.formatarValor(item.precoMensal) }} ao mês</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <span class="status {{ item.status }}">{{ nomeStatus(item.status) }}</span>
+    </mat-card-content>
+    <div class="acoes" *ngIf="usuarioService.isAdmin()">
+      <button mat-mini-fab routerLink="/boxes/{{ item.id }}" title="Editar">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab class="perigo" (click)="apagar(item)" title="Apagar">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+  <p class="vazio" *ngIf="list.length == 0">Nenhum box cadastrado.</p>
+</div>
