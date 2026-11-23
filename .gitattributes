@@ -1,0 +1,11 @@
+# Padrão: o Git decide a quebra de linha (as regras de baixo têm prioridade sobre esta)
+* text=auto
+
+# Arquivos do Windows (cmd) precisam de quebra de linha CRLF, senão o cmd se perde ao ler o .bat.
+# "-text" faz o Git guardar o arquivo do jeito que está (com CRLF) e nunca converter,
+# assim ele chega certo até para quem baixa o projeto como ZIP pelo GitHub
+*.bat -text
+*.cmd -text
+
+# Script do Linux/Mac precisa de LF
+mvnw text eol=lf
