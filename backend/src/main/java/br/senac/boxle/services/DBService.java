@@ -53,7 +53,7 @@ public class DBService {
 
     // ----- Dados de exemplo da primeira execução -----
 
-    // Um galpão pequeno já em funcionamento: 3 boxes por corredor, pequenos no A, médios no B e grandes no C.
+    // Um galpão pequeno já em funcionamento: 2 boxes por corredor, pequenos no A, médios no B e grandes no C.
     // O preço por m² cai conforme o box cresce, como no mercado de self-storage, e nunca fica abaixo do mínimo.
     // As empresas são fictícias. CNPJ e IE passam no dígito verificador, e os CEPs são de ruas reais
     private void criarDadosDeExemplo() {
@@ -61,11 +61,11 @@ public class DBService {
             return;
         }
         // Corredor A: pequenos (R$ 95 por m²)
-        criarBoxes("A", new double[]{2, 4, 6}, new double[]{190, 380, 570});
+        criarBoxes("A", new double[]{2, 4}, new double[]{190, 380});
         // Corredor B: médios (R$ 80 por m²)
-        criarBoxes("B", new double[]{8, 10, 12}, new double[]{640, 800, 960});
+        criarBoxes("B", new double[]{8, 12}, new double[]{640, 960});
         // Corredor C: grandes (R$ 65 por m²)
-        criarBoxes("C", new double[]{15, 20, 30}, new double[]{980, 1300, 1950});
+        criarBoxes("C", new double[]{15, 25}, new double[]{980, 1630});
 
         Cliente alvorada = clienteRepository.save(cliente("Alvorada Distribuidora de Embalagens Ltda",
                 "47391826000192", "148720360113", "03015000", "Avenida Celso Garcia", "1420", "Brás", "São Paulo",
@@ -79,8 +79,8 @@ public class DBService {
         contratoAtivo("A2", alvorada, hoje.minusMonths(4), 0);
         contratoAtivo("B2", alvorada, hoje.minusMonths(3), 1);
         // Casa Nobre: um box em dia e outro encerrado há 2 dias, ainda no prazo para desocupar
-        contratoAtivo("C2", casaNobre, hoje.minusMonths(7), 0);
-        contratoEncerrado("C3", casaNobre, hoje.minusMonths(6), hoje.minusDays(2));
+        contratoAtivo("C1", casaNobre, hoje.minusMonths(7), 0);
+        contratoEncerrado("C2", casaNobre, hoje.minusMonths(6), hoje.minusDays(2));
     }
 
     private void criarBoxes(String corredor, double[] tamanhos, double[] precos) {
